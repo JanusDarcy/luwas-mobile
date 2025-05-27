@@ -19,8 +19,9 @@ class AuthService {
   }) async {
     try {
       final user = await _authRepository.logInWithEmailAndPassword(
-          email: email, password: password);
-
+        email: email,
+        password: password,
+      );
       return Right(user);
     } on Failure catch (failure) {
       return Left(failure);
@@ -33,8 +34,9 @@ class AuthService {
   }) async {
     try {
       final user = await _authRepository.signUpWithEmailAndPassword(
-          email: email, password: password);
-
+        email: email,
+        password: password,
+      );
       return Right(user);
     } on Failure catch (failure) {
       return Left(failure);
@@ -44,17 +46,6 @@ class AuthService {
   Future<Either<Failure, User?>> signInWithGoogle() async {
     try {
       final user = await _authRepository.signInWithGoogle();
-
-      return Right(user);
-    } on Failure catch (failure) {
-      return Left(failure);
-    }
-  }
-
-  Future<Either<Failure, User?>> signInWithApple() async {
-    try {
-      final user = await _authRepository.signInWithApple();
-
       return Right(user);
     } on Failure catch (failure) {
       return Left(failure);
@@ -63,5 +54,15 @@ class AuthService {
 
   Future<void> signOut() async {
     await _authRepository.signOut();
+  }
+
+  // FIXED METHOD
+  Future<Either<Failure, void>> resetPassword(String email) async { // Changed return type and removed duplicate 'email' parameter
+    try {
+      await _authRepository.resetPassword(email);
+      return const Right(null); // Return Right(null) on success
+    } on Failure catch (failure) {
+      return Left(failure); // Return Left(failure) for consistency
+    }
   }
 }

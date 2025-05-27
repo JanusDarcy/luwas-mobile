@@ -4,19 +4,18 @@ import 'app_colors.dart';
 import 'app_text_style.dart';
 
 class BtnTheme {
-  static ButtonStyle primaryBtn({required EdgeInsets? padding}) {
-    return ButtonStyle(
-      backgroundColor: MaterialStateProperty.all(AppColors.primary),
-      foregroundColor: MaterialStateProperty.all(AppColors.white),
-      textStyle: MaterialStateProperty.all(
-        AppTextStyle.regular(fontSize: 16),
-      ),
-      padding: MaterialStateProperty.all(padding),
-      shape: MaterialStateProperty.all(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+  static ButtonStyle primaryBtn({
+    required EdgeInsets padding,
+    required Color backgroundColor,
+    required double borderRadius,
+  }) {
+    return TextButton.styleFrom(
+      padding: padding,
+      backgroundColor: backgroundColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(borderRadius),
       ),
     );
   }
 }
+

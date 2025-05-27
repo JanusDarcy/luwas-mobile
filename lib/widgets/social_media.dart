@@ -6,12 +6,12 @@ import 'social_card.dart';
 
 class SocialMedia extends StatelessWidget {
   final Function()? onGooglePressed;
-  final Function()? onApplePressed;
+  // final Function()? onApplePressed; // Removed onApplePressed parameter
 
   const SocialMedia({
     super.key,
     this.onGooglePressed,
-    this.onApplePressed,
+    // this.onApplePressed, // Removed onApplePressed parameter
   });
 
   @override
@@ -45,14 +45,14 @@ class SocialMedia extends StatelessWidget {
             onPressed: onGooglePressed,
           ),
         ),
-        const SizedBox(width: 10),
-        Expanded(
-          child: SocialCard(
-            title: "Apple",
-            image: "assets/images/social_media/apple.png",
-            onPressed: onApplePressed,
-          ),
-        ),
+        // const SizedBox(width: 10), // Removed SizedBox for Apple button spacing
+        // Expanded( // Removed the Expanded widget for the Apple button
+        //   child: SocialCard(
+        //     title: "Apple",
+        //     image: "assets/images/social_media/apple.png",
+        //     onPressed: onApplePressed,
+        //   ),
+        // ),
       ],
     );
   }

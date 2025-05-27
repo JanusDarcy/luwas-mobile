@@ -2,18 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CLIENT_ID</key>
+	<string>313947281938-462li3soike9lbd5nmle1n9ese9n2r37.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.313947281938-462li3soike9lbd5nmle1n9ese9n2r37</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDOjfeTGGq1zPXmC5dNMNe5ksIRp4j1jOM</string>
+	<string>AIzaSyASZ0P3H3JOdOjSrh10LBG5D-GGxdcZjbw</string>
 	<key>GCM_SENDER_ID</key>
-	<string>800631319219</string>
+	<string>313947281938</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.luwasApplication1</string>
+	<string>com.example.emailPasswordLogin</string>
 	<key>PROJECT_ID</key>
-	<string>luwasauth</string>
+	<string>luwas-49aec</string>
 	<key>STORAGE_BUCKET</key>
-	<string>luwasauth.firebasestorage.app</string>
+	<string>luwas-49aec.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:800631319219:ios:6253e1263345b363e55ec6</string>
+	<string>1:313947281938:ios:79144b818cc57246b396cb</string>
 </dict>
 </plist>

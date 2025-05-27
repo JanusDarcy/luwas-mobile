@@ -25,11 +25,20 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDisabled = onPressed == null;
+    final backgroundColor = isDisabled
+        ? (disabledBackgroundColor ?? Colors.grey.shade300)
+        : Theme.of(context).primaryColor;
+
     return SizedBox(
       width: double.infinity,
       child: TextButton(
         onPressed: onPressed,
-        style: BtnTheme.primaryBtn(padding: padding),
+        style: BtnTheme.primaryBtn(
+          padding: padding,
+          backgroundColor: backgroundColor,
+          borderRadius: borderRadius,
+        ),
         child: Text(
           title,
           style: AppTextStyle.semiBold(

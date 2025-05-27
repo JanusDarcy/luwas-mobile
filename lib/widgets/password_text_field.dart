@@ -1,24 +1,16 @@
+// lib/widgets/password_text_field.dart
 import 'package:flutter/material.dart';
-
-import '../shared/constants.dart';
-import '../theme/app_text_style.dart';
 
 class PasswordTextField extends StatefulWidget {
   final TextEditingController passwordController;
   final String labelText;
   final String validatorText;
-  final String? Function(String?)? validator;
-  final Function(String?)? onChanged;
-  final Function(String?)? onSaved;
 
   const PasswordTextField({
     super.key,
     required this.passwordController,
-    required this.labelText,
-    required this.validatorText,
-    this.validator,
-    this.onChanged,
-    this.onSaved,
+    this.labelText = 'Password',
+    this.validatorText = 'Password enter your password',
   });
 
   @override
@@ -32,57 +24,31 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.passwordController,
-      onChanged: widget.onChanged,
-      onSaved: widget.onSaved,
+      obscureText: _obscureText,
+      // REMOVED explicit InputDecoration styling for border and label color.
+      // These will now be inherited from ThemeData's inputDecorationTheme in main.dart.
       decoration: InputDecoration(
         labelText: widget.labelText,
-        suffixIconConstraints: const BoxConstraints(
-          minHeight: 40,
-          maxWidth: 40,
-          minWidth: 40,
-          maxHeight: 40,
+        // If you need an icon, add it here:
+        // prefixIcon: Icon(Icons.lock, color: Theme.of(context).primaryColor),
+        suffixIcon: IconButton(
+          icon: Icon(
+            _obscureText ? Icons.visibility_off : Icons.visibility,
+            color: Theme.of(context).primaryColor, // Ensures eye icon uses the blue theme
+          ),
+          onPressed: () {
+            setState(() {
+              _obscureText = !_obscureText;
+            });
+          },
         ),
-        suffixIcon: buildSuffixIcon(),
       ),
-      validator: _validatorDecorator,
-      obscureText: _obscureText,
-      style: AppTextStyle.regular(fontSize: 20),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return widget.validatorText;
+        }
+        return null;
+      },
     );
-  }
-
-  Widget buildSuffixIcon() {
-    String image = _obscureText
-        ? 'assets/images/common/password_visible.png'
-        : 'assets/images/common/password_obscure.png';
-    return GestureDetector(
-      onTap: () => setState(() => _obscureText = !_obscureText),
-      child: Padding(
-        padding: const EdgeInsets.only(right: 10),
-        child: Image.asset(image),
-      ),
-    );
-  }
-
-  String? _validatorDecorator(String? value) {
-    if (widget.validator != null) {
-      String? v = _validator(value);
-
-      if (v != null) {
-        return v;
-      }
-
-      return widget.validator!(v);
-    }
-
-    return _validator(value);
-  }
-
-  String? _validator(String? value) {
-    if (value == null || value.isEmpty) {
-      return widget.validatorText;
-    } else if (value.length < Constants.minPasswordSize) {
-      return 'Please enter at least ${Constants.minPasswordSize} characters';
-    }
-    return null;
   }
 }

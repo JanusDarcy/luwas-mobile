@@ -17,32 +17,17 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for android - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -54,4 +39,53 @@ class DefaultFirebaseOptions {
         );
     }
   }
+
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyAajUJSyvCBbd5tpdfrYLqqIduLRWhf2WY',
+    appId: '1:313947281938:web:37e47a50f4c6f9a1b396cb',
+    messagingSenderId: '313947281938',
+    projectId: 'luwas-49aec',
+    authDomain: 'luwas-49aec.firebaseapp.com',
+    storageBucket: 'luwas-49aec.firebasestorage.app',
+    measurementId: 'G-PJHPV0B5WX',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyASZ0P3H3JOdOjSrh10LBG5D-GGxdcZjbw',
+    appId: '1:313947281938:ios:79144b818cc57246b396cb',
+    messagingSenderId: '313947281938',
+    projectId: 'luwas-49aec',
+    storageBucket: 'luwas-49aec.firebasestorage.app',
+    iosClientId: '313947281938-462li3soike9lbd5nmle1n9ese9n2r37.apps.googleusercontent.com',
+    iosBundleId: 'com.example.emailPasswordLogin',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyASZ0P3H3JOdOjSrh10LBG5D-GGxdcZjbw',
+    appId: '1:313947281938:ios:a1d5e90e3e7905e4b396cb',
+    messagingSenderId: '313947281938',
+    projectId: 'luwas-49aec',
+    storageBucket: 'luwas-49aec.firebasestorage.app',
+    iosClientId: '313947281938-u72if6ur2dfrqo66ai0ao405fku61m3r.apps.googleusercontent.com',
+    iosBundleId: 'com.example.emailpasswordlogin',
+  );
+
+  static const FirebaseOptions android = FirebaseOptions(
+    apiKey: 'AIzaSyDe74ZkwMmK4uIzxTs1PoXobw312YISWWw',
+    appId: '1:313947281938:android:762190413337d681b396cb',
+    messagingSenderId: '313947281938',
+    projectId: 'luwas-49aec',
+    storageBucket: 'luwas-49aec.firebasestorage.app',
+  );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyAajUJSyvCBbd5tpdfrYLqqIduLRWhf2WY',
+    appId: '1:313947281938:web:0a6ff9cfa96f616eb396cb',
+    messagingSenderId: '313947281938',
+    projectId: 'luwas-49aec',
+    authDomain: 'luwas-49aec.firebaseapp.com',
+    storageBucket: 'luwas-49aec.firebasestorage.app',
+    measurementId: 'G-74PEWBQC5K',
+  );
+
 }

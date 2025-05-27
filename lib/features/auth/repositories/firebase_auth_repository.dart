@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import 'auth_repository.dart';
 
@@ -144,77 +143,26 @@ class FirebaseAuthRepository implements AuthRepository {
   }
 
   @override
-  Future<User?> signInWithApple() async {
-    try {
-      final credential = await SignInWithApple.getAppleIDCredential(
-        scopes: [AppleIDAuthorizationScopes.email],
-      );
-
-      final oauthCredential = OAuthProvider("apple.com").credential(
-        idToken: credential.identityToken,
-        accessToken: credential.authorizationCode,
-      );
-
-      final userCredential =
-          await _firebaseAuth.signInWithCredential(oauthCredential);
-      final user = userCredential.user;
-
-      if (user == null) {
-        throw const Failure(
-          code: 'user-credential-null',
-          message: 'An error occurred. Please try again later.',
-        );
-      }
-
-      return user;
-    } on FirebaseAuthException catch (err) {
-      throw Failure(
-        code: err.code,
-        message: 'An error occurred. Please try again later.',
-      );
-    } on SignInWithAppleAuthorizationException catch (err) {
-      switch (err.code) {
-        case AuthorizationErrorCode.canceled:
-          return null;
-        case AuthorizationErrorCode.failed:
-        case AuthorizationErrorCode.invalidResponse:
-        case AuthorizationErrorCode.notHandled:
-        case AuthorizationErrorCode.notInteractive:
-        case AuthorizationErrorCode.unknown:
-          throw Failure(
-            code: 'apple-sign-in-error',
-            message: 'Apple Sign-In error: ${err.message}',
-          );
-        case AuthorizationErrorCode.credentialExport:
-          throw const Failure(
-            code: 'apple-sign-in-error',
-            message: 'Apple Sign-In error: Credential export not supported.',
-          );
-        case AuthorizationErrorCode.credentialImport:
-          throw const Failure(
-            code: 'apple-sign-in-error',
-            message: 'Apple Sign-In error: Credential import failed.',
-          );
-        case AuthorizationErrorCode.matchedExcludedCredential:
-          throw const Failure(
-            code: 'apple-sign-in-error',
-            message: 'Apple Sign-In error: Matched excluded credential.',
-          );
-      }
-    } catch (err) {
-      throw const Failure(
-        code: '',
-        message: 'An error occurred. Please try again later.',
-      );
-    }
-  }
-
-  @override
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
   }
+
+  // This implementation was already correct.
+  @override
+  Future<void> resetPassword(String email) async {
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (err) {
+      // It's good that you're re-throwing a Failure here to be caught by AuthService
+      throw Failure(
+        code: err.code,
+        message: 'Failed to send reset email. Please try again.',
+      );
+    }
+  }
 }
 
+// Keep the Failure class here if it's not defined elsewhere globally
 class Failure implements Exception {
   final String code;
   final String message;

@@ -16,7 +16,9 @@ dependencies:
   firebase_core: ^3.8.0
   firebase_auth: ^5.3.3
   google_sign_in: ^6.2.2
-  sign_in_with_apple: ^7.0.1
+  google_fonts: ^6.1.0
+  intl: ^0.19.0
+
 
 dev_dependencies:
   flutter_test:
@@ -28,9 +30,25 @@ flutter:
   assets:
     - assets/images/common/
     - assets/images/social_media/
+    - assets/images/palawan.jpg
+    - assets/images/boracay.jpg
+    - assets/images/siargao.webp
+    - assets/images/philippines.webp
+    - assets/images/destination.jpg
+    - assets/images/itineraries.jpg
+    - assets/images/history.jpg
+    - assets/images/tarsier.jpg
+    - assets/images/cebu.jpg
+    - assets/images/baguio.jpg
+    - assets/images/avatar.jpg
+    - assets/images/bohol.webp
+    - assets/images/vigan.webp
+    - assets/images/elnido.jpg
+    - assets/images/batanes.webp
+    - assets/images/sagada.webp
   fonts:
     - family: Poppins
       fonts:
-        - asset: assets/fonts/Poppins-Bold.ttf
         - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-Bold.ttf
         - asset: assets/fonts/Poppins-Semibold.ttf

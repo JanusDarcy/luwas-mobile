@@ -1,13 +1,11 @@
-// lib/features/auth/email_password_login/pages/login_page.dart
-import 'package:email_password_login/features/auth/services/auth_service.dart';
-import 'package:email_password_login/components/home_section.dart';
-import 'package:email_password_login/theme/app_text_style.dart';
-import 'package:email_password_login/widgets/email_text_field.dart';
-import 'package:email_password_login/widgets/password_text_field.dart';
+import 'package:luwas_travel_app/features/auth/services/auth_service.dart';
+import 'package:luwas_travel_app/components/home_section.dart';
+import 'package:luwas_travel_app/theme/app_text_style.dart';
+import 'package:luwas_travel_app/widgets/email_text_field.dart';
+import 'package:luwas_travel_app/widgets/password_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:email_password_login/widgets/forgot_password_dialog.dart';
-
+import 'package:luwas_travel_app/widgets/forgot_password_dialog.dart';
 
 import '../../../../widgets/custom_button.dart';
 import '../../../../widgets/social_media.dart';
@@ -43,50 +41,64 @@ class _LogInPageState extends State<LogInPage> {
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Form(
               key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Log In", style: AppTextStyle.bold(fontSize: 32)),
-                  const SizedBox(height: 20),
-                  EmailTextField(emailController: _emailController), // Will now use blue theme
-                  PasswordTextField(
-                    passwordController: _passwordController,
-                    labelText: 'Password',
-                    validatorText: 'Password enter your password',
-                  ), // Will now use blue theme
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                      onPressed: () => showDialog(
-                        context: context,
-                        builder: (context) => const ForgotPasswordDialog(),
-                      ),
-                      child: const Text(
-                        "Forgot Password?",
-                        style: TextStyle(color: Colors.blue), // Explicitly set to blue, or could be Theme.of(context).primaryColor
+              child: SingleChildScrollView(
+                // Added SingleChildScrollView
+                child: Column(
+                  // REMOVED mainAxisAlignment: MainAxisAlignment.center
+                  // REMOVED Spacers
+                  children: [
+                    // You can add a SizedBox here if you want some initial top padding
+                    const SizedBox(height: 50), // Example: Add some space from the top
+
+                    Text("Log In", style: AppTextStyle.bold(fontSize: 32)),
+                    const SizedBox(
+                        height: 30), // Increased spacing for better visual separation
+                    EmailTextField(emailController: _emailController),
+                    const SizedBox(
+                        height: 15), // Added spacing between text fields
+                    PasswordTextField(
+                      passwordController: _passwordController,
+                      labelText: 'Password',
+                      validatorText: 'Password enter your password',
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                        onPressed: () => showDialog(
+                          context: context,
+                          builder: (context) => const ForgotPasswordDialog(),
+                        ),
+                        child: const Text(
+                          "Forgot Password?",
+                          style: TextStyle(color: Colors.blue),
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                  CustomButton(
-                    title: 'Log In',
-                    onPressed: _onLoginPressed,
-                  ), // Will now be blue
-                  const SizedBox(height: 40),
-                  SocialMedia(onGooglePressed: _onGooglePressed),
-                  const SizedBox(height: 80),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => const SignUpPage()),
-                      );
-                    },
-                    child: Text(
-                      "Sign Up",
-                      style: AppTextStyle.bold(fontSize: 18),
+                    const SizedBox(height: 25), // Adjusted spacing
+                    CustomButton(
+                      title: 'Log In',
+                      onPressed: _onLoginPressed,
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 30), // Adjusted spacing
+                    SocialMedia(onGooglePressed: _onGooglePressed),
+                    const SizedBox(height: 30), // Adjusted spacing
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => const SignUpPage()),
+                        );
+                      },
+                      child: Text(
+                        "Don't have an account? Sign Up", // Clarified text
+                        style: AppTextStyle.bold(fontSize: 18),
+                      ),
+                    ),
+                    // You can add a SizedBox here if you want some bottom padding,
+                    // or let the SingleChildScrollView handle the extent.
+                    const SizedBox(height: 50), // Example: Add some space at the bottom
+                  ],
+                ),
               ),
             ),
           ),
@@ -95,6 +107,7 @@ class _LogInPageState extends State<LogInPage> {
     );
   }
 
+  // ... (rest of your _LogInPageState code remains the same)
   Future<void> _onLoginPressed() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
@@ -167,69 +180,6 @@ class _LogInPageState extends State<LogInPage> {
           MaterialPageRoute(builder: (context) => const HomeSection()),
         );
       },
-    );
-  }
-}
-
-// Forgot Password Dialog (no changes needed for its appearance)
-class ForgotPasswordDialog extends StatefulWidget {
-  const ForgotPasswordDialog({super.key});
-
-  @override
-  State<ForgotPasswordDialog> createState() => _ForgotPasswordDialogState();
-}
-
-class _ForgotPasswordDialogState extends State<ForgotPasswordDialog> {
-  final TextEditingController _emailController = TextEditingController();
-  String? _message;
-
-  Future<void> _resetPassword() async {
-    final email = _emailController.text.trim();
-    try {
-      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-      setState(() {
-        _message = "A password reset link has been sent to $email.";
-      });
-    } catch (e) {
-      setState(() {
-        _message = "Error: ${e.toString()}";
-      });
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text("Reset Password"),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          TextField(
-            controller: _emailController,
-            keyboardType: TextInputType.emailAddress,
-            // This TextField will also inherit the inputDecorationTheme from main.dart
-            decoration: const InputDecoration(labelText: "Enter your email"),
-          ),
-          if (_message != null) ...[
-            const SizedBox(height: 10),
-            Text(
-              _message!,
-              style: const TextStyle(fontSize: 12, color: Colors.green),
-            ),
-          ],
-        ],
-      ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: const Text("Cancel"),
-        ),
-        ElevatedButton(
-          onPressed: _resetPassword,
-          // ElevatedButton usually inherits theme colors, so it should be blue
-          child: const Text("Send Link"),
-        ),
-      ],
     );
   }
 }

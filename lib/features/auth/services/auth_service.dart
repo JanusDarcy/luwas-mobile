@@ -1,5 +1,5 @@
 import 'package:either_dart/either.dart';
-import 'package:email_password_login/main.dart';
+import 'package:luwas_travel_app/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../repositories/auth_repository.dart';

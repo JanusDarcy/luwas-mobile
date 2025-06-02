@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:email_password_login/components/home_screen.dart'; // Import HomeHeroSection
+import 'package:luwas_travel_app/components/home_screen.dart';
 
 class HomeSection extends StatelessWidget {
   const HomeSection({super.key});
@@ -58,7 +58,7 @@ class HomeSection extends StatelessWidget {
                 const SizedBox(height: 20),
                ElevatedButton(
   style: ElevatedButton.styleFrom(
-    backgroundColor: Color(0xFF0077B6), 
+    backgroundColor: Color.fromARGB(255, 0, 88, 182),
     padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
   ),
   onPressed: () {
@@ -69,7 +69,7 @@ class HomeSection extends StatelessWidget {
   },
   child: const Text(
     "Start Exploring",
-    style: TextStyle(fontSize: 16),
+    style: TextStyle(fontSize: 16, color: Colors.white), // *** Changed text color to white ***
   ),
 ),
               ],

@@ -5,12 +5,13 @@ import 'package:flutter/material.dart';
 // import 'package:google_fonts/google_fonts.dart';
 
 // Assuming you have these pages for navigation (ensure paths are correct)
-import 'package:email_password_login/components/itinerary_page.dart';
-import 'package:email_password_login/screens/profile_page.dart';
-import 'package:email_password_login/components/travel_history_page.dart';
-import 'package:email_password_login/components/destination_page.dart'; // Your Explore page
-import 'package:email_password_login/theme/app_text_style.dart'; // Import AppTextStyle
-import 'package:email_password_login/screens/travel_package_details_page.dart'; // NEW: Import your new page
+import 'package:luwas_travel_app/components/itinerary_page.dart';
+import 'package:luwas_travel_app/screens/profile_page.dart';
+import 'package:luwas_travel_app/components/travel_history_page.dart';
+import 'package:luwas_travel_app/components/destination_page.dart'; // Your Explore page
+import 'package:luwas_travel_app/theme/app_text_style.dart'; // Import AppTextStyle
+import 'package:luwas_travel_app/screens/travel_package_details_page.dart'; // NEW: Import your new page
+import 'package:luwas_travel_app/components/chat_support_page.dart'; // NEW: Import your new chat support page
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -76,6 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Map<String, dynamic>> bottomNavItems = const [
     {"title": "Home", "icon": Icons.home, "route": "/home"},
     {"title": "Explore", "icon": Icons.search, "route": "/destinations"}, // Links to DestinationPage
+    {"title": "Chat", "icon": Icons.chat_bubble_outline, "route": "/chat_support"}, // NEW: Chat Support
     {"title": "Itinerary", "icon": Icons.calendar_month, "route": "/itineraries"},
     {"title": "Profile", "icon": Icons.person, "route": "/profile"},
   ];

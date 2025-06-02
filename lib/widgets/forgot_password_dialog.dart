@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:email_password_login/theme/app_text_style.dart'; // Ensure this import is correct if used
-import 'package:email_password_login/features/auth/services/auth_service.dart';
-import 'package:either_dart/either.dart'; // Add this import for Either
+import 'package:luwas_travel_app/theme/app_text_style.dart'; // Ensure this import is correct if used
+import 'package:luwas_travel_app/features/auth/services/auth_service.dart';
+
 
 class ForgotPasswordDialog extends StatefulWidget {
   const ForgotPasswordDialog({super.key});

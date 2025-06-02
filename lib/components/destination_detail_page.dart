@@ -1,8 +1,7 @@
-// lib/pages/destination_detail_page.dart
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart'; // Import for currency formatting
+import 'package:luwas_travel_app/components/map_tab.dart';
+import 'booking_form_page.dart';
 
 class DestinationDetailPage extends StatefulWidget {
   final Map<String, dynamic> destination;
@@ -13,13 +12,14 @@ class DestinationDetailPage extends StatefulWidget {
   State<DestinationDetailPage> createState() => _DestinationDetailPageState();
 }
 
-class _DestinationDetailPageState extends State<DestinationDetailPage> with SingleTickerProviderStateMixin {
+class _DestinationDetailPageState extends State<DestinationDetailPage>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this); // For Description, Gallery, Reviews
+    _tabController = TabController(length: 4, vsync: this);
   }
 
   @override
@@ -30,149 +30,131 @@ class _DestinationDetailPageState extends State<DestinationDetailPage> with Sing
 
   @override
   Widget build(BuildContext context) {
+    // Get the top padding (safe area inset)
+    final double topPadding = MediaQuery.of(context).padding.top;
+    // You can print the topPadding here to confirm its value for debugging
+    // print('Top Padding: $topPadding');
+
     return Scaffold(
-      backgroundColor: Colors.grey[50], // Light background for the page
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            expandedHeight: 400.0, // Height of the image section
-            floating: true,
-            pinned: true,
-            backgroundColor: Colors.transparent, // Background will be covered by the image
-            elevation: 0,
-            leading: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CircleAvatar(
-                backgroundColor: Colors.white.withOpacity(0.8),
-                child: IconButton(
-                  icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ),
-            ),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: CircleAvatar(
-                  backgroundColor: Colors.white.withOpacity(0.8),
-                  child: IconButton(
-                    icon: const Icon(Icons.menu, color: Colors.black), // Menu icon from design
-                    onPressed: () {
-                      // Handle menu action
-                    },
-                  ),
-                ),
-              ),
-            ],
-            flexibleSpace: FlexibleSpaceBar(
-              background: Stack(
-                fit: StackFit.expand,
-                children: [
-                  // Destination Image
-                  Image.asset(
-                    widget.destination['image'],
-                    fit: BoxFit.cover,
-                  ),
-                  // Gradient Overlay for text readability
-                  Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Colors.black.withOpacity(0.2),
-                          Colors.black.withOpacity(0.5),
-                        ],
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView(
+              children: [
+                Stack(
+                  children: [
+                    // The main image
+                    Image.asset(
+                      widget.destination['image'],
+                      height: 300,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
+                    // Back Button
+                    Positioned(
+                      top: topPadding + 10, // Adjusted for safe area
+                      left: 16,
+                      child: Container(
+                        // Removed debugging color, as we confirmed positioning
+                        // color: Colors.red.withOpacity(0.3),
+                        child: CircleAvatar(
+                          backgroundColor: Colors.white,
+                          radius: 20, // Explicitly set radius for better control
+                          child: IconButton(
+                            icon: const Icon(
+                              Icons.arrow_back,
+                              color: Colors.black, // <-- Set icon color to black
+                              size: 24, // <-- Explicitly set icon size
+                            ),
+                            onPressed: () => Navigator.pop(context),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                  // Content Overlay (Title, Location, Metrics)
-                  Positioned(
-                    bottom: 20,
-                    left: 20,
-                    right: 20,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          widget.destination['title'],
-                          style: GoogleFonts.poppins(
-                            fontSize: 32,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        const SizedBox(height: 8),
-                        Row(
-                          children: [
-                            const Icon(Icons.location_on, color: Colors.white, size: 20),
-                            const SizedBox(width: 5),
-                            Text(
-                              // Using a generic "Philippines" for now, or you can add specific city/province
-                              // to your destination data if needed.
-                              'Philippines',
-                              style: GoogleFonts.poppins(
-                                fontSize: 18,
-                                color: Colors.white70,
-                                fontWeight: FontWeight.w500,
-                              ),
+                    // Menu Button
+                    Positioned(
+                      top: topPadding + 10, // Adjusted for safe area
+                      right: 16,
+                      child: Container(
+                        // Removed debugging color
+                        // color: Colors.green.withOpacity(0.3),
+                        child: CircleAvatar(
+                          backgroundColor: Colors.white,
+                          radius: 20, // Explicitly set radius for better control
+                          child: IconButton(
+                            icon: const Icon(
+                              Icons.menu,
+                              color: Colors.black, // <-- Set icon color to black
+                              size: 24, // <-- Explicitly set icon size
                             ),
-                          ],
+                            onPressed: () {},
+                          ),
                         ),
-                        const SizedBox(height: 20),
-                        // Metrics row: 1 Day, 12 MPH South (placeholder), Rating
-                        Row(
-                          children: [
-                            _buildMetricItem(Icons.access_time, '1 Day', color: Colors.white),
-                            const SizedBox(width: 16),
-                            _buildMetricItem(Icons.wind_power, '12 MPH South', color: Colors.white), // Placeholder, can be removed
-                            const SizedBox(width: 16),
-                            _buildMetricItem(Icons.star_rounded, widget.destination['rating'].toString(), color: Colors.yellow),
-                          ],
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
+                  ],
+                ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Tab Bar
+                      Text(
+                        widget.destination['title'],
+                        style: GoogleFonts.poppins(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        children: [
+                          const Icon(Icons.location_on, color: Colors.grey),
+                          const SizedBox(width: 4),
+                          Text(
+                            'Philippines',
+                            style: GoogleFonts.poppins(color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        children: [
+                          const Icon(Icons.calendar_today, size: 16, color: Colors.grey),
+                          const SizedBox(width: 4),
+                          Text('1 Day', style: GoogleFonts.poppins()),
+                          const SizedBox(width: 16),
+                          const Icon(Icons.air, size: 16, color: Colors.grey),
+                          const SizedBox(width: 4),
+                          Text('12 MPH South', style: GoogleFonts.poppins()),
+                          const SizedBox(width: 16),
+                          const Icon(Icons.star, size: 16, color: Colors.amber),
+                          const SizedBox(width: 4),
+                          Text('${widget.destination['rating']}', style: GoogleFonts.poppins()),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
                       TabBar(
                         controller: _tabController,
                         labelColor: Colors.black,
                         unselectedLabelColor: Colors.grey,
-                        indicatorColor: const Color.fromARGB(255, 0, 123, 255), // Matches the design's indicator
-                        labelStyle: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 16),
+                        indicatorColor: Colors.blue,
                         tabs: const [
-                          Tab(text: 'Place Description'),
+                          Tab(text: 'Description'),
                           Tab(text: 'Gallery'),
                           Tab(text: 'Reviews'),
+                          Tab(text: 'Map'),
                         ],
                       ),
-                      const SizedBox(height: 20),
-                      // Tab Bar View Content
+                      const SizedBox(height: 16),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.4, // Adjust height as needed
+                        height: 300,
                         child: TabBarView(
                           controller: _tabController,
                           children: [
-                            // Place Description Tab Content
                             SingleChildScrollView(
                               child: Text(
-                                widget.destination['description'] ?? 'No description available for this destination.',
+                                widget.destination['description'] ?? 'No description available.',
                                 style: GoogleFonts.poppins(
                                   fontSize: 16,
                                   color: Colors.black87,
@@ -180,19 +162,25 @@ class _DestinationDetailPageState extends State<DestinationDetailPage> with Sing
                                 ),
                               ),
                             ),
-                            // Gallery Tab Content (Placeholder)
                             Center(
                               child: Text(
                                 'Gallery for ${widget.destination['title']}',
                                 style: GoogleFonts.poppins(fontSize: 18, color: Colors.grey),
                               ),
                             ),
-                            // Reviews Tab Content (Placeholder)
-                            Center(
-                              child: Text(
-                                'Reviews for ${widget.destination['title']}',
-                                style: GoogleFonts.poppins(fontSize: 18, color: Colors.grey),
+                            ListView.builder(
+                              itemCount: 3,
+                              itemBuilder: (context, index) => ListTile(
+                                leading: const CircleAvatar(
+                                  child: Icon(Icons.person),
+                                ),
+                                title: Text('User $index'),
+                                subtitle: const Text('Very beautiful place! Would visit again.'),
                               ),
+                            ),
+                            MapTab(
+                              latitude: widget.destination['latitude'] ?? 11.9695,
+                              longitude: widget.destination['longitude'] ?? 121.9278,
                             ),
                           ],
                         ),
@@ -203,102 +191,55 @@ class _DestinationDetailPageState extends State<DestinationDetailPage> with Sing
               ],
             ),
           ),
-        ],
-      ),
-      bottomNavigationBar: _buildBottomBookingBar(context),
-    );
-  }
-
-  Widget _buildMetricItem(IconData icon, String text, {Color color = Colors.white}) {
-    return Row(
-      children: [
-        Icon(icon, color: color, size: 18),
-        const SizedBox(width: 5),
-        Text(
-          text,
-          style: GoogleFonts.poppins(
-            fontSize: 16,
-            color: color,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildBottomBookingBar(BuildContext context) {
-    // Get the price from the destination data
-    final double? price = widget.destination['price'] as double?;
-
-    // Format the price to Philippine Peso
-    final NumberFormat currencyFormatter = NumberFormat.currency(
-      locale: 'en_PH', // Use Philippine locale for formatting
-      symbol: '₱',    // Philippine Peso symbol
-      decimalDigits: 2, // Two decimal places
-    );
-
-    final String formattedPrice = price != null
-        ? currencyFormatter.format(price)
-        : 'Price N/A'; // Handle case where price might be missing
-
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 10,
-            offset: const Offset(0, -5),
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Total Cost:',
-                style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  color: Colors.grey[600],
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: 10,
                 ),
-              ),
-              Text(
-                formattedPrice, // Display the formatted price
-                style: GoogleFonts.poppins(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
-              ),
-            ],
-          ),
-          ElevatedButton(
-            onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Booking ${widget.destination['title']} for $formattedPrice...')),
-              );
-              // Implement actual booking logic here
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color.fromARGB(255, 0, 123, 255), // Matches the design's button color
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+              ],
             ),
-            child: Text(
-              'Book Now',
-              style: GoogleFonts.poppins(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Total Cost:',
+                      style: GoogleFonts.poppins(fontSize: 14, color: Colors.grey),
+                    ),
+                    Text(
+                      '₱${widget.destination['price']}',
+                      style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => BookingFormPage(destination: widget.destination),
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  ),
+                  child: Text(
+                    'Book Now',
+                    style: GoogleFonts.poppins(fontSize: 16, color: Colors.white),
+                  ),
+                ),
+              ],
             ),
           ),
         ],

@@ -1,8 +1,8 @@
 // lib/components/itinerary_page.dart
 
 import 'package:flutter/material.dart';
-import 'package:email_password_login/theme/app_text_style.dart'; // Import AppTextStyle
-import 'package:email_password_login/components/trip_details_page.dart'; // Import TripDetailsPage
+import 'package:luwas_travel_app/theme/app_text_style.dart'; // Import AppTextStyle
+import 'package:luwas_travel_app/components/trip_details_page.dart'; // Import TripDetailsPage
 
 class ItineraryPage extends StatelessWidget {
   const ItineraryPage({super.key});

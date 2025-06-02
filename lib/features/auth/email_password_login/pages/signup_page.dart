@@ -1,12 +1,11 @@
-// lib/features/auth/email_password_login/pages/signup_page.dart
 import 'package:flutter/material.dart';
-import 'package:email_password_login/features/auth/services/auth_service.dart';
-import 'package:email_password_login/theme/app_text_style.dart';
-import 'package:email_password_login/widgets/email_text_field.dart';
-import 'package:email_password_login/widgets/password_text_field.dart';
-import 'package:email_password_login/widgets/custom_button.dart';
-import 'package:email_password_login/widgets/social_media.dart';
-import 'package:email_password_login/widgets/forgot_password_dialog.dart';
+import 'package:luwas_travel_app/features/auth/services/auth_service.dart';
+import 'package:luwas_travel_app/theme/app_text_style.dart';
+import 'package:luwas_travel_app/widgets/email_text_field.dart';
+import 'package:luwas_travel_app/widgets/password_text_field.dart';
+import 'package:luwas_travel_app/widgets/custom_button.dart';
+import 'package:luwas_travel_app/widgets/social_media.dart';
+import 'package:luwas_travel_app/widgets/forgot_password_dialog.dart';
 import '../../../home/home_page.dart'; // Assuming this is your actual home page after signup
 
 class SignUpPage extends StatefulWidget {
@@ -39,49 +38,58 @@ class _SignUpPageState extends State<SignUpPage> {
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Form(
               key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Sign Up", style: AppTextStyle.bold(fontSize: 32)),
-                  const SizedBox(height: 20),
-                  EmailTextField(emailController: _emailController), // Will now use blue theme
-                  PasswordTextField(
-                    passwordController: _passwordController,
-                    labelText: 'Password',
-                    validatorText: 'Password enter your password',
-                  ), // Will now use blue theme
-                  const SizedBox(height: 10),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => const ForgotPasswordDialog(),
-                        );
-                      },
-                      child: const Text(
-                        "Forgot Password?",
-                        style: TextStyle(color: Colors.blue), // Explicitly set to blue, or could be Theme.of(context).primaryColor
+              child: SingleChildScrollView(
+                // Added SingleChildScrollView
+                child: Column(
+                  // REMOVED mainAxisAlignment: MainAxisAlignment.center
+                  // REMOVED Spacers
+                  children: [
+                    const SizedBox(height: 50), // Example: Add some space from the top
+
+                    Text("Sign Up", style: AppTextStyle.bold(fontSize: 32)),
+                    const SizedBox(height: 30), // Increased spacing
+                    EmailTextField(emailController: _emailController),
+                    const SizedBox(
+                        height: 15), // Added spacing between text fields
+                    PasswordTextField(
+                      passwordController: _passwordController,
+                      labelText: 'Password',
+                      validatorText: 'Password enter your password',
+                    ),
+                    const SizedBox(height: 10), // Maintained this small gap
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => const ForgotPasswordDialog(),
+                          );
+                        },
+                        child: const Text(
+                          "Forgot Password?",
+                          style: TextStyle(color: Colors.blue),
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                  CustomButton(
-                    title: 'Sign Up',
-                    onPressed: _onSignUpPressed,
-                  ), // Will now be blue
-                  const SizedBox(height: 40),
-                  SocialMedia(onGooglePressed: _onGooglePressed),
-                  const SizedBox(height: 60),
-                  GestureDetector(
-                    onTap: _onLogInPressed,
-                    child: Text(
-                      "Already have an account? Log In",
-                      style: AppTextStyle.bold(fontSize: 18),
+                    const SizedBox(height: 25), // Adjusted spacing
+                    CustomButton(
+                      title: 'Sign Up',
+                      onPressed: _onSignUpPressed,
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 30), // Adjusted spacing
+                    SocialMedia(onGooglePressed: _onGooglePressed),
+                    const SizedBox(height: 30), // Adjusted spacing
+                    GestureDetector(
+                      onTap: _onLogInPressed,
+                      child: Text(
+                        "Already have an account? Log In",
+                        style: AppTextStyle.bold(fontSize: 18),
+                      ),
+                    ),
+                    const SizedBox(height: 50), // Example: Add some space at the bottom
+                  ],
+                ),
               ),
             ),
           ),
@@ -90,6 +98,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
+  // ... (rest of your _SignUpPageState code remains the same)
   Future<void> _onSignUpPressed() async {
     if (_formKey.currentState!.validate()) {
       final email = _emailController.text;

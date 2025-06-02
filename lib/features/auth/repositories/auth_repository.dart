@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:email_password_login/features/auth/repositories/firebase_auth_repository.dart'; // Make sure this import is correct for your Failure class
+import 'package:luwas_travel_app/features/auth/repositories/firebase_auth_repository.dart'; // Make sure this import is correct for your Failure class
 
 abstract class AuthRepository {
   Future<User> logInWithEmailAndPassword({

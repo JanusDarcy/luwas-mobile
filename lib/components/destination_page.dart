@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:email_password_login/components/destination_detail_page.dart'; // Ensure this import is present
+import 'package:luwas_travel_app/components/destination_detail_page.dart'; // Ensure this import is present
 
 class DestinationPage extends StatefulWidget {
   const DestinationPage({super.key});

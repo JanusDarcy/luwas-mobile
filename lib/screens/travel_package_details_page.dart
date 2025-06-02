@@ -1,7 +1,7 @@
 // lib/screens/travel_package_details_page.dart
 
 import 'package:flutter/material.dart';
-import 'package:email_password_login/theme/app_text_style.dart'; // Import your AppTextStyle
+import 'package:luwas_travel_app/theme/app_text_style.dart'; // Import your AppTextStyle
 import 'package:intl/intl.dart'; // Import for currency formatting
 
 class TravelPackageDetailsPage extends StatefulWidget {

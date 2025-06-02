@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>313947281938-u72if6ur2dfrqo66ai0ao405fku61m3r.apps.googleusercontent.com</string>
+	<string>313947281938-ci2fd6ee0og8al55b46ljud2tsvvf4qq.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.313947281938-u72if6ur2dfrqo66ai0ao405fku61m3r</string>
+	<string>com.googleusercontent.apps.313947281938-ci2fd6ee0og8al55b46ljud2tsvvf4qq</string>
 	<key>API_KEY</key>
 	<string>AIzaSyASZ0P3H3JOdOjSrh10LBG5D-GGxdcZjbw</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.emailpasswordlogin</string>
+	<string>com.luwas.travelapp</string>
 	<key>PROJECT_ID</key>
 	<string>luwas-49aec</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:313947281938:ios:a1d5e90e3e7905e4b396cb</string>
+	<string>1:313947281938:ios:9bac42e93b4e90adb396cb</string>
 </dict>
 </plist>

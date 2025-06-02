@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:email_password_login/components/home_screen.dart';
+import 'package:luwas_travel_app/components/home_screen.dart';
 
 
 class HomePage extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart'; // Import Firebase Auth
-import 'package:email_password_login/features/auth/email_password_login/pages/login_page.dart'; // Import your login page
+import 'package:luwas_travel_app/features/auth/email_password_login/pages/login_page.dart'; // Import your login page
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});

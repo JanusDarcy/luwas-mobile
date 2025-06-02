@@ -1,17 +1,18 @@
 // main.dart
 
-import 'package:email_password_login/components/home_screen.dart'; // Your HomeScreen
-import 'package:email_password_login/components/home_section.dart'; // If you're using this for initial routing
-import 'package:email_password_login/components/itinerary_page.dart'; // Placeholder/Actual Itinerary Page
-import 'package:email_password_login/components/destination_page.dart'; // <--- ASSUMING THIS IS THE CORRECT PATH TO YOUR DETAILED DESTINATION PAGE
-import 'package:email_password_login/features/auth/email_password_login/pages/login_page.dart'; // Your login page
-import 'package:email_password_login/screens/profile_page.dart'; // Your profile page
-import 'package:email_password_login/screens/splash_screen.dart'; // Your splash screen
+import 'package:luwas_travel_app/components/home_screen.dart'; // Your HomeScreen
+import 'package:luwas_travel_app/components/home_section.dart'; // If you're using this for initial routing
+import 'package:luwas_travel_app/components/itinerary_page.dart'; // Placeholder/Actual Itinerary Page
+import 'package:luwas_travel_app/components/destination_page.dart'; // <--- ASSUMING THIS IS THE CORRECT PATH TO YOUR DETAILED DESTINATION PAGE
+import 'package:luwas_travel_app/features/auth/email_password_login/pages/login_page.dart'; // Your login page
+import 'package:luwas_travel_app/screens/profile_page.dart'; // Your profile page
+import 'package:luwas_travel_app/screens/splash_screen.dart'; // Your splash screen
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:email_password_login/components/travel_history_page.dart'; // IMPORTANT: Ensure this import points to your detailed TravelHistoryPage file
+import 'package:luwas_travel_app/components/travel_history_page.dart'; // IMPORTANT: Ensure this import points to your detailed TravelHistoryPage file
+import 'package:luwas_travel_app/components/chat_support_page.dart'; // NEW: Import chat support page
 
 import 'firebase_options.dart';
 
@@ -131,6 +132,7 @@ class MyApp extends StatelessWidget {
         '/travel-history': (context) => const TravelHistoryPage(),
         '/support': (context) => const SupportPage(),
         '/profile': (context) => const ProfilePage(),
+        '/chat_support': (context) => const ChatSupportPage(), // NEW: Chat Support route
       },
     );
   }
